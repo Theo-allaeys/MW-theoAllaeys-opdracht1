@@ -1,0 +1,57 @@
+body {
+  font-family: sans-serif;
+}
+input{
+  background-color: hsl(238deg, 50%, 90%);
+  border-color: hsl(238deg, 49%, 47%);
+  color: hsl(238deg, 49%, 47%);
+  margin-top: 0.25em;
+}
+.knop {
+  border: solid 1px black;
+  width: 10em;
+  display: inline-block;
+  margin: 0.25em;
+  padding: 0.2em;
+}
+
+.rij {
+  background-color: hsl(238deg, 50%, 60%);
+  border: 1px solid hsl(238deg, 49%, 47%);
+  border-style: none none solid none;
+  margin: 0;
+  padding: 0.1em;
+  display: block;
+  width: 97vw;
+  height: 1.6em;
+  max-width: 600px;
+  box-sizing: border-box;
+
+}
+
+.rij span {
+  display: block;
+  float: left;
+  width: 25%;
+  overflow: word-wrap;
+  padding: 0.1em;
+  box-sizing: border-box;
+
+}
+
+.kOdd {
+  background-color: hsl(238deg 58% 42%);
+  color: hsl(0,0%,100%);
+}
+
+label {
+  display: inline-block;
+  width: 10em;
+}
+
+#alert {
+  background-color: hsl(238deg 58% 42%);
+  color: hsl(0,0%,100%);
+  max-width: 45em;
+  padding: 0.25em;
+}
