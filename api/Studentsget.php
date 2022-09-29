@@ -12,7 +12,16 @@ require 'inc/base.php';
 // PRODUCTENget
 // --- "Get" alle producten  
 
-$sql="select id, voornaam, achternaam, studentennummer FROM student ";
+$sql="SELECT
+    student.id, student.voornaam, student.achternaam, student.studentennummer, vak.naam
+FROM
+    vakstudent 
+INNER JOIN
+    student
+  ON vakstudent.studentennummer = student.studentennummer
+INNER JOIN
+    vak
+  ON vakstudent.vakcode = vak.code";
 
 // geen prepared statement nodig, aangezien we geen parameters
 // van de gebruiker verwerken.

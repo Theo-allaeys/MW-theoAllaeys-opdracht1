@@ -40,15 +40,16 @@
 		}
 		// get json data
 		const jsondata = await resp.json();
+        console.log(jsondata);
         let data = jsondata.data;
 
 		if (data.length > 0) {
 			// er zit minstens 1 item in list, we geven dit ook onmiddelijk weer
-			var tLijst = "<span class='rij kOdd'><span>ID</span><span>voornaam</span><span>achternaam</span><span>studentennummer</span></span>";
+			var tLijst = "<table border='1' cellspacing='2' cellpadding='2'><tr><th>id</th><th>voornaam</th><th>achternaam</th><th>studentennummer</th><th>cursus</th></tr>";
 			for (var i = 0; i < data.length; i++) {
-				tLijst += "<span class='rij'><span>" + data[i].id + "</span><span>" + data[i].voornaam + "</span><span>" + data[i].achternaam + "</span><span>" + data[i].studentennummer + "</span></span>";
+				tLijst += "<tr><td>" + data[i].id + "</td><td>" + data[i].voornaam + "</td><td>" + data[i].achternaam + "</td><td>" + data[i].studentennummer + "</td><td>" + data[i].naam + "</td></tr>";
 			}
-			tLijst += "<br>";
+			tLijst += "</table><br>";
 
 			alerter(tLijst);
 		} else {
