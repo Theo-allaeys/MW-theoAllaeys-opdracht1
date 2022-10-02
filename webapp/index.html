@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stijl.css">        
+    <link rel="stylesheet" href="css/stijl.css">
 </head>
 
 <body>
@@ -13,8 +14,20 @@
         Wat wil je doen vandaag?
     </div>
     <span class="knop kOdd" id="btnGetProducten">Test producten</span>
+    <form action="" method="post" id="addstudent" onsubmit="return false">
+        <input type="text" id="add_voornaam" name="add_voornaam"><span>voornaam</span><br>
+        <input type="text" id="add_achternaam" name="add_achternaam"><span>achternaam</span><br>
+        <input type="text" id="add_studentennummer" name="add_studentennummer"><span>studentennummer</span><br>
+        <select id="add_cursus" name="add_cursus">
+            <div id="cursusoption">
+
+            </div>
+        </select><span>cursus</span><br>
+        <input type="submit">
+    </form>
     <!-- eigen scripts hier -->
     <script src="js/script.js" defer async></script>
 
 </body>
+
 </html>

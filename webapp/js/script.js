@@ -3,9 +3,15 @@
 	/*jslint browser: true*/
 	/*jslint devel: true*/
 	let baseApiAddress = "https://theoallaeys2021.be/web&mobile/taak1/api/";
+	const fromstudent = document.getElementById("addstudent");
+	const add_voornaam = fromstudent.elements['add_voornaam'];
+	const add_achternaam = fromstudent.elements['add_achternaam'];
+	const add_studentennummer = fromstudent.elements['add_studentennummer'];
+	const add_cursus = fromstudent.elements['add_cursus'];
 	/* Vorige lijn aanpassen naar de locatie op jouw domein! */
 
 	let alertEl = document.getElementById("alert");
+	let options = document.getElementById('cursusoption');
 	let opties = {
 		method: "POST", // *GET, POST, PUT, DELETE, etc.
 		mode: "cors", // no-cors, *cors, same-origin
@@ -21,7 +27,7 @@
 		}*/
 	};
 
-	async function getApiProducten() {
+	async function getApistudent() {
 		// de producten van de server opvragen en weergeven dmv de alerter functie
 		let url = baseApiAddress + "Studentsget.php";
 
@@ -58,14 +64,122 @@
 
 	}
 
+	function addStudent() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "studentadd.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+            student_voornaam: add_voornaam.value,
+            student_achternaam: add_achternaam.value,
+            student_nummer: add_studentennummer.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
+	function addStudentvak() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "studentvakadd.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+			student_nummer: add_studentennummer.value,
+            student_vak: add_cursus.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
+	async function getApivak() {
+		console.log("loaded");
+		// de producten van de server opvragen en weergeven dmv de alerter functie
+		let url = baseApiAddress + "vakget.php";
+
+		// body data type must match "Content-Type" header
+		opties.body = JSON.stringify({
+			//, user : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig 
+			//, password : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig
+		});
+
+		// test de api
+
+		let resp = await fetch(url);
+		if (!resp.ok) {
+			console.log('opvragen vakken mislukt');
+			return;
+		}
+		// get json data
+		const jsondata = await resp.json();
+        console.log(jsondata);
+        let data = jsondata.data;
+
+		if (data.length > 0) {
+			// er zit minstens 1 item in list, we geven dit ook onmiddelijk weer
+			var tLijst = "";
+			for (var i = 0; i < data.length; i++) {
+				tLijst += " <option value=" + data[i].code + ">" + data[i].naam + "</option>";
+			}
+			optioner(tLijst);
+		} else {
+			optioner("Servertijd kon niet opgevraagd worden");
+		}
+
+	}
+
 	// EventListeners
 	document.getElementById("btnGetProducten").addEventListener("click", function () {
-		getApiProducten();
+		getApistudent();
 	});
+	fromstudent.addEventListener('submit', function() {
+		addStudent();
+		addStudentvak();
+	} )
+
+	window.onload =  getApivak();
 
 	// helper functies
 	function alerter(message) {
 		alertEl.innerHTML = message;
+	}
+	function optioner(message) {
+		options.innerHTML = message;
 	}
 })();
 
