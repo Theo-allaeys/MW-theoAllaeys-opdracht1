@@ -5,17 +5,17 @@
 	let baseApiAddress = "https://theoallaeys2021.be/web&mobile/taak1/api/";
 	const fromstudent = document.getElementById("addstudent");
 	const formvak = document.getElementById("addvak");
+	const formtostud = document.getElementById("addvaktostudent");
 	const add_voornaam = fromstudent.elements['add_voornaam'];
 	const add_achternaam = fromstudent.elements['add_achternaam'];
 	const add_studentennummer = fromstudent.elements['add_studentennummer'];
 	const add_cursus = fromstudent.elements['add_cursus'];
 	const add_code = formvak.elements['add_code'];
 	const add_naam = formvak.elements['add_naam'];
-	const add_taal = formvak.elements['add_taal'];	
+	const add_taal = formvak.elements['add_taal'];
 	/* Vorige lijn aanpassen naar de locatie op jouw domein! */
 
 	let alertEl = document.getElementById("alert");
-	let options = document.getElementById("cursusoption");
 	let opties = {
 		method: "POST", // *GET, POST, PUT, DELETE, etc.
 		mode: "cors", // no-cors, *cors, same-origin
@@ -198,6 +198,51 @@
             });
     }
 
+	async function getvakinfo() {
+		// de producten van de server opvragen en weergeven dmv de alerter functie
+		let url = baseApiAddress + "vakinfoget.php";
+
+		// body data type must match "Content-Type" header
+		opties.body = JSON.stringify({
+			//, user : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig 
+			//, password : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig
+		});
+
+		// test de api
+
+		let resp = await fetch(url);
+		if (!resp.ok) {
+			console.log('opvragen vakken mislukt');
+			return;
+		}
+		// get json data
+		const jsondata = await resp.json();
+        console.log(jsondata);
+        let data = jsondata.data;
+
+		if (data.length > 0) {
+			// er zit minstens 1 item in list, we geven dit ook onmiddelijk weer
+			var tLijst = "<table border='1' cellspacing='2' cellpadding='2'><tr><th>naam</th><th>code</th><th>taal</th><th>voornaam</th><th>achternaam</th><th>studentennummer</th></tr>";
+			let vakken ="";
+			for (var i = 0; i < data.length; i++) {
+				if (vakken == data[i].naam){
+					tLijst += "<tr><td> </td><td>" + data[i].code + "</td><td>" + data[i].taal + "</td><td>" + data[i].voornaam + "</td><td>" + data[i].achternaam + "</td><td>" + data[i].studentennummer + "</td></tr>";
+				}else{
+					tLijst += "<tr><td>" + data[i].naam + "</td><td>" + data[i].code + "</td><td>" + data[i].taal + "</td><td>" + data[i].voornaam + "</td><td>" + data[i].achternaam + "</td><td>" + data[i].studentennummer + "</td></tr>";
+					vakken = data[i].naam
+				}
+			}
+			tLijst += "</table><br>";
+
+			alerter(tLijst);
+		} else {
+			alerter("Servertijd kon niet opgevraagd worden");
+		}
+
+	}
+
+	
+
 	// EventListeners
 	document.getElementById("btnGetProducten").addEventListener("click", function () {
 		getApistudent();
@@ -212,6 +257,13 @@
 	})
 
 	window.onload =  getApivak();
+
+	document.getElementById("btncursussen").addEventListener("click", function () {
+		getvakinfo();
+	});
+	document.getElementById("addstud").addEventListener("click", function(){
+		addStudentvak();
+	})
 
 	// helper functies
 	function alerter(message) {

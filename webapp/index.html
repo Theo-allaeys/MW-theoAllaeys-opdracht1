@@ -13,16 +13,19 @@
     <div id="alert">
         Wat wil je doen vandaag?
     </div>
-    <span class="knop kOdd" id="btnGetProducten">Test producten</span>
+    <span class="knop kOdd" id="btnGetProducten">Test student</span><span class="knop kOdd" id="btncursussen">Test cursus</span><br>
+    <span>student toevoegen</span>
     <form action="" method="post" id="addstudent" onsubmit="return false">
         <input type="text" id="add_voornaam" name="add_voornaam"><span>voornaam</span><br>
         <input type="text" id="add_achternaam" name="add_achternaam"><span>achternaam</span><br>
-        <input type="text" id="add_studentennummer" name="add_studentennummer"><span>studentennummer</span><br>
+        <input type="text" id="add_studentennummer" name="add_studentennummer"><span>studentennummer (voor student to vak)</span><br>
         <select id="add_cursus" name="add_cursus">
 <option value="0">selecteer</option>
-        </select><span>cursus</span><br>
+        </select><span>cursus (voor student to vak)</span><br>
         <input type="submit">
     </form>
+    <button id="addstud">add student to cursus</button>
+    <span>cursus toevoegen</span>
     <form action="" method="post" id="addvak" onsubmit="return false">
         <input type="text" id="add_code"><span>code</span><br>
         <input type="text" id="add_naam"><span>naam</span><br>
