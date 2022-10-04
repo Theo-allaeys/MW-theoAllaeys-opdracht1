@@ -241,7 +241,36 @@
 
 	}
 
-	
+	function delStudentvak() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "studentvakdel.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+			student_nummer: add_studentennummer.value,
+            student_vak: add_cursus.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
 
 	// EventListeners
 	document.getElementById("btnGetProducten").addEventListener("click", function () {
@@ -263,6 +292,10 @@
 	});
 	document.getElementById("addstud").addEventListener("click", function(){
 		addStudentvak();
+	})
+
+	document.getElementById("delstud").addEventListener("click", function(){
+		delStudentvak();
 	})
 
 	// helper functies
