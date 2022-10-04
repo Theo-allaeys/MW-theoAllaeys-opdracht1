@@ -272,6 +272,128 @@
             });
     }
 
+	function delStudent() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "studentdel.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+			student_nummer: add_studentennummer.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
+	function delvak() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "vakdel.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+            student_vak: add_cursus.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
+	function aditStudent() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "studentedit.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+            student_voornaam: add_voornaam.value,
+            student_achternaam: add_achternaam.value,
+            student_nummer: add_studentennummer.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+
+                getApistudent();
+
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
+	function aditvak() {
+        // een ONVEILIGE manier om gebruikersgegevens te testen
+
+        let url = baseApiAddress + "vakadit.php";
+        // onze php api verwacht een paar parameters
+        // we voegen deze toe aan de body van de opties
+
+        // body data type must match "Content-Type" header
+        opties.body = JSON.stringify({
+            vak_code: add_code.value,
+            vak_naam: add_naam.value,
+            vak_taal: add_taal.value,
+            format: "json"
+        });
+
+        // test de api
+        fetch(url, opties)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function() {
+                //correct toegevoegd?
+                getApivak();
+            })
+            .catch(function(error) {
+                // verwerk de fout
+                alertEl.innerHTML = "fout : " + error;
+            });
+    }
+
 	// EventListeners
 	document.getElementById("btnGetProducten").addEventListener("click", function () {
 		getApistudent();
@@ -296,6 +418,22 @@
 
 	document.getElementById("delstud").addEventListener("click", function(){
 		delStudentvak();
+	})
+
+	document.getElementById("editstud").addEventListener("click", function(){
+		aditStudent();
+	})
+
+	document.getElementById("delstudent").addEventListener("click", function(){
+		delStudent();
+	})
+
+	document.getElementById("aditvak").addEventListener("click", function(){
+		aditvak();
+	})
+
+	document.getElementById("delvak").addEventListener("click", function(){
+		delvak();
 	})
 
 	// helper functies
